@@ -31,5 +31,11 @@ namespace SLHDotNetTrainingInPersonBatch1.WindowsFormsApp
             this.Close();
             //Application.Exit();
         }
+
+        private void saleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmSale frm = new FrmSale();
+            frm.ShowDialog();
+        }
     }
 }

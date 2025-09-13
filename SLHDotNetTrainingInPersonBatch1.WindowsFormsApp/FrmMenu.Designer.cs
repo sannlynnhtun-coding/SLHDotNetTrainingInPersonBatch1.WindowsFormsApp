@@ -66,6 +66,7 @@
             saleToolStripMenuItem.Name = "saleToolStripMenuItem";
             saleToolStripMenuItem.Size = new Size(60, 29);
             saleToolStripMenuItem.Text = "Sale";
+            saleToolStripMenuItem.Click += saleToolStripMenuItem_Click;
             // 
             // settingToolStripMenuItem
             // 
@@ -77,7 +78,7 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(270, 34);
+            exitToolStripMenuItem.Size = new Size(141, 34);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
