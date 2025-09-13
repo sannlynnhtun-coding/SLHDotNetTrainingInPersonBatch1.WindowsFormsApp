@@ -19,7 +19,7 @@ namespace SLHDotNetTrainingInPersonBatch1.WindowsFormsApp
             //}
 
 
-            if (txtUsername.Text != "admin" && txtPassword.Text != "admin")
+            if (txtUsername.Text != "admin" || txtPassword.Text != "admin")
             {
                 MessageBox.Show("Invalid username or password", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

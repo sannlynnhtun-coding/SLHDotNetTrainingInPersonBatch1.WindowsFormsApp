@@ -38,6 +38,17 @@
             txtPrice = new TextBox();
             txtQty = new TextBox();
             btnSave = new Button();
+            dgvData = new DataGridView();
+            btnRefresh = new Button();
+            btnUpdate = new Button();
+            colEdit = new DataGridViewButtonColumn();
+            colDelete = new DataGridViewButtonColumn();
+            colProductId = new DataGridViewTextBoxColumn();
+            colProductCode = new DataGridViewTextBoxColumn();
+            colProductName = new DataGridViewTextBoxColumn();
+            colPrice = new DataGridViewTextBoxColumn();
+            colQuantity = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -57,6 +68,7 @@
             btnCancel.TabIndex = 1;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // label2
             // 
@@ -123,11 +135,116 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
+            // dgvData
+            // 
+            dgvData.AllowUserToAddRows = false;
+            dgvData.AllowUserToDeleteRows = false;
+            dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvData.Columns.AddRange(new DataGridViewColumn[] { colEdit, colDelete, colProductId, colProductCode, colProductName, colPrice, colQuantity });
+            dgvData.Location = new Point(12, 231);
+            dgvData.Name = "dgvData";
+            dgvData.ReadOnly = true;
+            dgvData.RowHeadersWidth = 62;
+            dgvData.Size = new Size(541, 325);
+            dgvData.TabIndex = 10;
+            dgvData.CellContentClick += dgvData_CellContentClick;
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Location = new Point(405, 171);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(112, 34);
+            btnRefresh.TabIndex = 11;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(287, 171);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(112, 34);
+            btnUpdate.TabIndex = 12;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Visible = false;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // colEdit
+            // 
+            colEdit.HeaderText = "Edit";
+            colEdit.MinimumWidth = 8;
+            colEdit.Name = "colEdit";
+            colEdit.ReadOnly = true;
+            colEdit.Text = "Edit";
+            colEdit.UseColumnTextForButtonValue = true;
+            colEdit.Width = 150;
+            // 
+            // colDelete
+            // 
+            colDelete.HeaderText = "Delete";
+            colDelete.MinimumWidth = 8;
+            colDelete.Name = "colDelete";
+            colDelete.ReadOnly = true;
+            colDelete.Resizable = DataGridViewTriState.True;
+            colDelete.SortMode = DataGridViewColumnSortMode.Automatic;
+            colDelete.Text = "Delete";
+            colDelete.UseColumnTextForButtonValue = true;
+            colDelete.Width = 150;
+            // 
+            // colProductId
+            // 
+            colProductId.DataPropertyName = "ProductId";
+            colProductId.HeaderText = "Product Id";
+            colProductId.MinimumWidth = 8;
+            colProductId.Name = "colProductId";
+            colProductId.ReadOnly = true;
+            colProductId.Width = 150;
+            // 
+            // colProductCode
+            // 
+            colProductCode.DataPropertyName = "ProductCode";
+            colProductCode.HeaderText = "Product Code";
+            colProductCode.MinimumWidth = 8;
+            colProductCode.Name = "colProductCode";
+            colProductCode.ReadOnly = true;
+            colProductCode.Width = 150;
+            // 
+            // colProductName
+            // 
+            colProductName.DataPropertyName = "ProductName";
+            colProductName.HeaderText = "Product Name";
+            colProductName.MinimumWidth = 8;
+            colProductName.Name = "colProductName";
+            colProductName.ReadOnly = true;
+            colProductName.Width = 150;
+            // 
+            // colPrice
+            // 
+            colPrice.DataPropertyName = "Price";
+            colPrice.HeaderText = "Price";
+            colPrice.MinimumWidth = 8;
+            colPrice.Name = "colPrice";
+            colPrice.ReadOnly = true;
+            colPrice.Width = 150;
+            // 
+            // colQuantity
+            // 
+            colQuantity.DataPropertyName = "Quantity";
+            colQuantity.HeaderText = "Quantity";
+            colQuantity.MinimumWidth = 8;
+            colQuantity.Name = "colQuantity";
+            colQuantity.ReadOnly = true;
+            colQuantity.Width = 150;
+            // 
             // FrmProduct
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(565, 568);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnRefresh);
+            Controls.Add(dgvData);
             Controls.Add(btnSave);
             Controls.Add(txtQty);
             Controls.Add(txtPrice);
@@ -141,6 +258,8 @@
             Name = "FrmProduct";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Product";
+            Load += FrmProduct_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvData).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -157,5 +276,15 @@
         private TextBox txtPrice;
         private TextBox txtQty;
         private Button btnSave;
+        private DataGridView dgvData;
+        private Button btnRefresh;
+        private Button btnUpdate;
+        private DataGridViewButtonColumn colEdit;
+        private DataGridViewButtonColumn colDelete;
+        private DataGridViewTextBoxColumn colProductId;
+        private DataGridViewTextBoxColumn colProductCode;
+        private DataGridViewTextBoxColumn colProductName;
+        private DataGridViewTextBoxColumn colPrice;
+        private DataGridViewTextBoxColumn colQuantity;
     }
 }
