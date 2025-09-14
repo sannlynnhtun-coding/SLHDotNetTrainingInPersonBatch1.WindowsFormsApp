@@ -102,9 +102,102 @@ namespace SLHDotNetTrainingInPersonBatch1.WindowsFormsApp
 
             txtTotalAmount.Text = Products.Sum(x => (x.Price * x.Quantity)).ToString();
 
+            //cboProduct.SelectedIndex = 0;
+            //txtPrice.Clear();
+            //txtQuantity.Clear();
+
+            ClearControls();
+        }
+
+        private void ClearControls()
+        {
             cboProduct.SelectedIndex = 0;
             txtPrice.Clear();
             txtQuantity.Clear();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Sale Insert
+            // Sale Detail
+            int saleId = CreateSale();
+            if (saleId == 0)
+            {
+                MessageBox.Show("Cannot create sale");
+                return;
+            }
+            bool result = CreateSaleDetail(saleId);
+            if (result == false)
+            {
+                MessageBox.Show("Cannot create sale detail");
+                return;
+            }
+
+            MessageBox.Show("Save completed");
+            ClearControls();
+            Products = new List<ProductDto>();
+            dgvData.DataSource = null;
+            dgvData.DataSource = Products;
+        }
+
+        /// <summary>
+        /// Return SaleId
+        /// </summary>
+        /// <returns></returns>
+        private int CreateSale()
+        {
+            string querySaleInsert = @"INSERT INTO [dbo].[Tbl_Sale]
+           ([VoucherNo]
+           ,[SaleDate]
+           ,[TotalAmount])
+     VALUES
+           (@VoucherNo
+           ,@SaleDate
+           ,@TotalAmount);
+SELECT SCOPE_IDENTITY();";
+            using IDbConnection db = new SqlConnection(AppSetting.ConnectionStringBuilder.ConnectionString);
+            var parameters = new
+            {
+                VoucherNo = "V" + DateTime.Now.ToString("yyyyMMddHHmmss"),
+                SaleDate = DateTime.Now,
+                TotalAmount = Convert.ToDecimal(txtTotalAmount.Text.Trim())
+            };
+            var saleId = db.ExecuteScalar(querySaleInsert, parameters);
+            if (saleId != null && saleId != DBNull.Value)
+            {
+                return Convert.ToInt32(saleId);
+            }
+            return 0;
+        }
+
+        private bool CreateSaleDetail(int saleId)
+        {
+            int result = 0;
+            string querySaleDetailInsert = @"INSERT INTO [dbo].[Tbl_SaleDetail]
+           ([SaleId]
+           ,[ProductId]
+           ,[Quantity]
+           ,[Price])
+     VALUES
+           (@SaleId
+           ,@ProductId
+           ,@Quantity
+           ,@Price)";
+            using (IDbConnection db = new SqlConnection(AppSetting.ConnectionStringBuilder.ConnectionString))
+            {
+                foreach (ProductDto item in Products)
+                {
+                    result += db.Execute(querySaleDetailInsert, new
+                    {
+                        SaleId = saleId,
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
+                        Price = item.Price
+                    });
+                }
+            }
+
+            return result == Products.Count;
         }
     }
 }
